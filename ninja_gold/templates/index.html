@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}ninja money{% endblock %}
+{% block content %}
+
+
+<div class="container-fluid p-5 bg-light">
+    <h1 class="mb-3">Ninja Gold</h1>
+    <div class="row mb-3">
+        <div class="col-6">
+            <h3>Your gold: <span class="text-warning">{{request.session.total_gold}}</span></h3>
+        </div>
+        <div class="col text-end">
+            <a href="{% url 'ninja_gold:reset' %}" class="btn btn-info">Play Again</a>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-3 mb-2">
+            <form action="{% url 'ninja_gold:process' %}" method="POST">
+                {% csrf_token %}
+                <div class="card text-center">
+                    <div class="card-header text-white bg-info">
+                        <h4 class="card-title">Farm</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">(Earns 10-20 golds)</p>
+                        <input type="hidden" name="farming" value="farm">
+                        <button type="submit" class="btn btn-info">Find Gold!!!</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-3 mb-2">
+            <form action="#" method="POST">
+                {% csrf_token %}
+                <div class="card text-center">
+                    <div class="card-header text-white bg-info">
+                        <h4 class="card-title">Cave</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">(Earns 5-10 golds)</p>
+                        <input type="hidden" name="farming" value="cave">
+                        <button type="submit" class="btn btn-info">Find Gold!!!</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-3 mb-2">
+            <form action="#" method="POST">
+                {% csrf_token %}
+                <div class="card text-center">
+                    <div class="card-header text-white bg-info">
+                        <h4 class="card-title">House</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">(Earns 2-5 golds)</p>
+                        <input type="hidden" name="farming" value="house">
+                        <button type="submit" class="btn btn-info">Find Gold!!!</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-3 mb-2">
+            <form action="#" method="POST">
+                {% csrf_token %}
+                <div class="card text-center">
+                    <div class="card-header text-white bg-info">
+                        <h4 class="card-title">Casino</h4>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">(Earns/takes 0-50 golds)</p>
+                        <input type="hidden" name="farming" value="casino">
+                        <button type="submit" class="btn btn-warning">Find Gold!!!</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row">
+        <h4>Activities</h4>
+        <div class="col-lg-12">
+            <div class="card registro">
+                {% for registro in request.session.registro reversed %}
+                {% if "lost" in registro %}    
+                    <h6 class="text-danger">{{ registro }}</h6>
+                {% else %}
+                    <h6 class="text-success">{{ registro }}</h6>
+                {% endif %}
+            {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+   
+{% endblock %}
